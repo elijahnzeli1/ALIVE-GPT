@@ -170,4 +170,4 @@ This README.md file provides a comprehensive guide for users and potential contr
 10. License information
 11. Contact details for further inquiries
 
-This README should give users and developers all the information they need to get started with the NEN-AI project, run it locally, and potentially deploy it to a production environment.
+##This README should give users and developers all the information they need to get started with the NEN-AI project, run it locally, and potentially deploy it to a production environment.
