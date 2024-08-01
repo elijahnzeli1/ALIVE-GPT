@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEN-AI Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Results</h1>
+        <div id="results">
+            {% for result in results %}
+            <div class="result-item">
+                <h3>Prompt:</h3>
+                <p>{{ result.prompt }}</p>
+                <h3>Generated Text:</h3>
+                <p>{{ result.generated_text }}</p>
+                <p class="timestamp">Generated at: {{ result.created_at }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('index') }}">Back to Generator</a>
+    </div>
+</body>
+</html>

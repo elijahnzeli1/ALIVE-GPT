@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+transformers
+torch
+scikit-learn
