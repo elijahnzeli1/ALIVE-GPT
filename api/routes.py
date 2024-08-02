@@ -1,11 +1,10 @@
-from flask import jsonify, request
+from flask import jsonify, request, send_file
 from api import app, db
 from api.models import GeneratedContent
 from ai_engine.inference import generate_content
-from ai_engine.model import GenAIModel
-
-# Initialize the model with the fine-tuned weights
-gen_ai_model = GenAIModel(model_path='./fine_tuned_model')
+from gtts import gTTS
+import os
+import tempfile
 
 @app.route('/api/generate', methods=['POST'])
 def generate():
@@ -15,7 +14,7 @@ def generate():
     if not prompt:
         return jsonify({'error': 'No prompt provided'}), 400
     
-    generated_text = gen_ai_model.generate(prompt)
+    generated_text = generate_content(prompt)
     
     new_content = GeneratedContent(prompt=prompt, generated_text=generated_text)
     db.session.add(new_content)
@@ -23,7 +22,17 @@ def generate():
     
     return jsonify({'generated_text': generated_text}), 200
 
-@app.route('/api/history', methods=['GET'])
-def get_history():
-    history = GeneratedContent.query.order_by(GeneratedContent.created_at.desc()).limit(10).all()
-    return jsonify([{'prompt': h.prompt, 'generated_text': h.generated_text, 'created_at': h.created_at} for h in history]), 200
+@app.route('/api/text-to-speech', methods=['POST'])
+def text_to_speech():
+    data = request.json
+    text = data.get('text')
+    
+    if not text:
+        return jsonify({'error': 'No text provided'}), 400
+    
+    # Create a temporary file to store the audio
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_audio:
+        tts = gTTS(text=text, lang='en')
+        tts.save(temp_audio.name)
+    
+    return send_file(temp_audio.name, mimetype='audio/mp3')

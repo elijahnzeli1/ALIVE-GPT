@@ -57,7 +57,7 @@ def fine_tune_model(train_file, valid_file):
     return GenAIModel(model_path=trainer.output_dir)
 
 if __name__ == "__main__":
-    train_file = "data/processed/train.txt"
-    valid_file = "data/processed/valid.txt"
+    train_file = "data/processed/advanced_train.txt"
+    valid_file = "data/processed/advanced_valid.txt"
     fine_tuned_model = fine_tune_model(train_file, valid_file)
     print("Fine-tuning completed. Model saved in ./fine_tuned_model")

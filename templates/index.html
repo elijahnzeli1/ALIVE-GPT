@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEN-AI</title>
+    <title>NEN-AI Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>NEN-AI</h1>
+        <h1>NEN-AI Generator</h1>
         <form id="generate-form">
             <textarea id="prompt" placeholder="Enter your prompt here"></textarea>
-            <button type="submit">Send</button>
+            <button type="submit">Generate</button>
         </form>
         <div id="result"></div>
+        <button id="speak-button" style="display: none;">Speak</button>
+        <audio id="audio-player" style="display: none;"></audio>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
